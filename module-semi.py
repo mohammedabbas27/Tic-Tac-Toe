@@ -267,22 +267,40 @@ def brain(selec1,cchoic1,chi1):
     #Hard Mode
     if chi1=='2':
         print('control reaching')
-        j=1
-        for i in range(1,9):
-            i=str(i)
-            if board[i]==' ':
-                j=j+1
-        if j>=8:
-            fag=1
-            while fag==1:
-                #fp=randint(1,9)
-                fp=choice(array2)
-                fp=cpos[fp]
-                fag=setposition(fp,cchoic1)
-                if fag==0:
+        if count==0 & count==2:
+            j=1
+            for i in range(1,9):
+                i=str(i)
+                if board[i]==' ':
+                    j=j+1
+            if j>=8:
+                fag=1
+                while fag==1:
+                    #fp=randint(1,9)
+                    fp=choice(array2)
+                    fp=cpos[fp]
+                    fag=setposition(fp,cchoic1)
+                    if fag==0:
+                        clear()
+                        draw()
+                        return
+        if count==1:
+            fag1=1
+            while fag1==1:
+                fag1=setposition('5',cchoic1)
+                if fag1==0:
                     clear()
                     draw()
                     return
+                else:
+                    fp=choice(array2)
+                    fp=cpos[fp]
+                    setposition(fp,cchoic1)
+                    clear()
+                    draw()
+                    return
+
+
         if z=='12':
             if board['3']==' ':
                 rd=randint(1,18)
@@ -2842,6 +2860,53 @@ def brain(selec1,cchoic1,chi1):
                                  if fp!=7:
                                      if fp!=8:
                                          if fp!=9:
+                                             if board[fp]==' ':
+                                                 break
+                         fag=setposition(fp,cchoic1)
+                         if fag==0:
+                             return
+                 else:
+                     setposition('8',cchoic1)
+                     return
+        if z=='245':
+            if board['6']==' ':
+                rd=randint(1,18)
+                rd=rd%2
+                rd=randint(1,18)
+                rd=rd%2
+                if rd>=10:
+                    fag=1
+                    while fag==1:
+                        while 1:
+                            fp=randint(1,9)
+                            fp=cpos[fp]
+                            if fp!=2:
+                                if fp!=4:
+                                    if fp!=5:
+                                        if fp!=6:
+                                            if board[fp]==' ':
+                                                break
+                        fag=setposition(fp,cchoic1)
+                        if fag==0:
+                            return
+                else:
+                    setposition('6',cchoic1)
+                    return
+            elif board['8']==' ':
+                 rd=randint(1,18)
+                 rd=rd%2
+                 rd=randint(1,18)
+                 rd=rd%2
+                 if rd>=10:
+                     fag=1
+                     while fag==1:
+                         while 1:
+                             fp=randint(1,9)
+                             fp=cpos[fp]
+                             if fp!=2:
+                                 if fp!=4:
+                                     if fp!=5:
+                                         if fp!=8:
                                              if board[fp]==' ':
                                                  break
                          fag=setposition(fp,cchoic1)
