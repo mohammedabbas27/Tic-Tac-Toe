@@ -168,6 +168,7 @@ def offence(uchoic11,chi1):
         z=w+x+y
         z=str(int(z/10))
         print(str(z))
+        brain(select2,cchoice1,chi1)
         return
 def defence(uchoic11):
     global z,rdz
