@@ -1,10 +1,10 @@
-#Tic Tac Toe
+#Tic Tac Toe~ by Mohammed Abbas 
 import sys,os,time
 from random import *
 array=[]
 array1=[]
 array2=[1,3,7,9]
-clear=lambda:os.system("cls")
+clear=lambda:os.system("clear")
 board={'1':'','2':'','3':'','4':'','5':'','6':'',
         '7':'','8':'','9':''}
 cont={3:'Computer',4:'Player',1:'Player 1',2:'Player 2'}
@@ -37,7 +37,9 @@ def empty():
 #######++++++++----++++++xxxxxxxxxxxxxxxxxxxx+++++-----++++################
 #Setting the positiong of the Chosen Value i.e X OR O
 def setposition(pos,choiceu):
+    global mm
     if board[pos]==' ':
+        mm=True
         board[pos]=choiceu
         global count
         count=count+1
@@ -144,6 +146,7 @@ def check(uchoice,cchoice):
         sys.exit()
     return 0
 def offence(uchoic11,chi1):
+    print('Offence')
     global z,rdz
     rdz='1'
     for i in board:
@@ -170,9 +173,9 @@ def offence(uchoic11,chi1):
         print(str(z))
         brain(select2,cchoice1,chi1)
         return
-def defence(uchoic11):
-    global z,rdz
-    rdz='0'
+def defence(uchoic11,chi1):
+    print('Defence')
+    global z
     for i in board:
         if board[i]==uchoic11:
             if int(i) not in array:
@@ -190,8 +193,21 @@ def defence(uchoic11):
         w=array[0]*1000
         x=array[1]*100
         y=array[2]*10
+        z=w+x
+        z=str(int(z/100))
+        brain(select2,cchoice1,chi1)
+        if mm==True:
+            return
+        z=x+y
+        z=str(int(z/10))
+        brain(select2,cchoice1,chi1)
+        if mm==True:
+            return
         z=w+x+y
         z=str(int(z/10))
+        brain(select2,cchoice1,chi1)
+        if mm==True:
+            return
         print(str(z))
         return
 
@@ -213,6 +229,7 @@ def decide(ais):
             select2=1
     if ais==1:
         select1=randint(3,4)
+        #select1=4
         #select1=4
         if select1==3:
             select2=4
@@ -266,8 +283,28 @@ def brain(selec1,cchoic1,chi1):
             print('Invalid Choice,Retrying!')
     #Hard Mode
     if chi1=='2':
-        print('control reaching')
-        if count==0 & count==2:
+        #print('control reaching')
+        print(str(count))
+        if count==0:
+            #print('entering count')
+            j=1
+            for i in range(1,9):
+                i=str(i)
+                if board[i]==' ':
+                    j=j+1
+            if j>=8:
+                fag=1
+                while fag==1:
+                    #fp=randint(1,9)
+                    fp=choice(array2)
+                    fp=cpos[fp]
+                    fag=setposition(fp,cchoic1)
+                    if fag==0:
+                        clear()
+                        draw()
+                        return
+        if count==2:
+            #print('entering count')
             j=1
             for i in range(1,9):
                 i=str(i)
@@ -3056,7 +3093,7 @@ def brain(selec1,cchoic1,chi1):
                     return
         print('rdz1')
         if rdz=='0':
-            print('rdz')
+            #print('rdz')
             fag=1
             while fag==1:
                 fp=randint(1,9)
@@ -3067,6 +3104,7 @@ def brain(selec1,cchoic1,chi1):
 #######++++++++----++++++xxxxxxxxxxxxxxxxxxxx+++++-----++++################
 #Concept of Aritificial Intelligence
 def ai(chi):
+    global mm,rdz
     ais=1
     decide(ais)
     print('Player Your Choice is '+uchoice1)
@@ -3074,19 +3112,27 @@ def ai(chi):
     while check(uchoice1,cchoice1)==0:
         if select1==4:
             ask(select1,uchoice1)
+            mm=False
             print('Thinking.......')
             time.sleep(2)
             offence(cchoice1,chi)
-            defence(uchoice1)
-            brain(select2,cchoice1,chi)
+            defence(uchoice1,chi)
+            if mm==False:
+                rdz='0'
+                brain(select2,cchoice1,chi)
+                mm=False
         elif select1==3:
             print('Thinking.......')
             time.sleep(2)
             offence(cchoice1,chi)
-            defence(uchoice1)
-            brain(select1,cchoice1,chi)
+            defence(uchoice1,chi)
+            if mm==False:
+                rdz='0'
+                brain(select1,cchoice1,chi)
+                mm=False
             #ask(select1,cchoice1)
             ask(select2,uchoice1)
+            mm=False
     sys.exit()
 
 #######++++++++----++++++xxxxxxxxxxxxxxxxxxxx+++++-----++++################
@@ -3096,6 +3142,7 @@ draw()
 empty()
 select1=select2=uchoice1=cchoice1=f=z=count=0
 rdz=' '
+mm=False
 print('Mode of Play :\n1.Single Player\n2.Multiplayer\n\n')
 print('Enter your Selection\n')
 sel=str(input())
